@@ -1,11 +1,11 @@
-import { css, cx } from "@emotion/css";
-import * as React from "react";
+import { css, cx } from '@emotion/css';
+import * as React from 'react';
 
 const liStyle = css`
   position: relative;
   ::before {
     position: absolute;
-    content: "";
+    content: '';
     width: 10px;
     height: 10px;
     background: black;
@@ -47,14 +47,14 @@ export default function App() {
   return (
     <div
       className={css`
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         text-align: center;
       `}
     >
       <h1>Responsive notification badge</h1>
       <h2>
-        Inspired by{" "}
+        Inspired by{' '}
         <a
           href="https://twitter.com/neilsardesai/status/1386469816987537417"
           target="_blank"
@@ -65,7 +65,7 @@ export default function App() {
       </h2>
       <div
         className={css`
-          background: url("img/wallpaper.jpg") no-repeat center;
+          background: url('img/wallpaper.jpg') no-repeat center;
           width: 600px;
           height: 320px;
           margin: auto;
