@@ -127,6 +127,7 @@ export default function App() {
           value={count}
           onChange={handleChange}
         />
+        &nbsp;
         <input
           type="range"
           min="0"
