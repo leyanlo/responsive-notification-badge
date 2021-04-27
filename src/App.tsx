@@ -60,7 +60,7 @@ export default function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          this tweet
+          Neil Sardesai
         </a>
       </h2>
       <div
