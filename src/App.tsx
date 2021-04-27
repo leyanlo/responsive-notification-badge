@@ -1,6 +1,14 @@
 import { css, cx } from '@emotion/css';
 import * as React from 'react';
 
+function lerp(v0: number, v1: number, t: number) {
+  return v0 * (1 - t) + v1 * t;
+}
+
+function logLerp(v0: number, v1: number, t: number) {
+  return lerp(v0, v1, Math.log10(t));
+}
+
 const liStyle = css`
   position: relative;
   ::before {
@@ -24,15 +32,40 @@ const badgeStyle = (count: number) => css`
     color: white;
     position: absolute;
     right: 0;
-    top: ${count < 100 ? 0 : count < 1000 ? 36 : 0}px;
-    width: ${count < 10 ? 64 : count < 100 ? 128 : 172}px;
-    height: ${count < 10 ? 64 : count < 100 ? 96 : count < 1000 ? 100 : 172}px;
-    border-radius: ${count < 10 ? 32 : 48}px;
-    font-size: ${count < 10 ? 32 : count < 100 ? 48 : count < 1000 ? 56 : 64}px;
+    top: ${
+      count < 10
+        ? 0
+        : count < 100
+        ? logLerp(0, 36, count / 10)
+        : logLerp(36, 0, count / 100)
+    }px;
+    width: ${
+      count < 10
+        ? logLerp(64, 128, count)
+        : count < 100
+        ? logLerp(128, 172, count / 10)
+        : 172
+    }px;
+    height: ${
+      count < 10
+        ? logLerp(64, 96, count)
+        : count < 100
+        ? logLerp(96, 100, count / 10)
+        : logLerp(100, 172, count / 100)
+    }px;
+    border-radius: ${count < 10 ? logLerp(32, 48, count) : 48}px;
+    font-size: ${
+      count < 10
+        ? logLerp(32, 48, count)
+        : count < 100
+        ? logLerp(48, 56, count / 10)
+        : logLerp(56, 64, count / 100)
+    }px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-variant-numeric: tabular-nums;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
 `;
 
