@@ -17,10 +17,32 @@ const liStyle = css`
   }
 `;
 
+const badgeStyle = (count: number) => css`
+  ::after {
+    content: "${count}";
+    background: #FF3B30EE;
+    color: white;
+    position: absolute;
+    right: 0;
+    top: ${count < 100 ? 0 : count < 1000 ? 36 : 0}px;
+    width: ${count < 10 ? 64 : count < 100 ? 128 : 172}px;
+    height: ${count < 10 ? 64 : count < 100 ? 96 : count < 1000 ? 100 : 172}px;
+    border-radius: ${count < 10 ? 32 : 48}px;
+    font-size: ${count < 10 ? 32 : count < 100 ? 48 : count < 1000 ? 56 : 64}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-variant-numeric: tabular-nums;
+  }
+`;
+
 export default function App() {
   const [count, setCount] = React.useState(1);
   const handleChange = React.useCallback((e) => {
     setCount(e.target.value);
+  }, []);
+  const handleLogChange = React.useCallback((e) => {
+    setCount(~~(10 ** e.target.value));
   }, []);
   return (
     <div
@@ -54,11 +76,12 @@ export default function App() {
         <ul
           className={css`
             position: absolute;
-            margin: 0;
+            margin: 0 auto;
             padding: 12px 12px 24px;
             right: 12px;
             left: 12px;
             bottom: 12px;
+            width: max-content;
             background-color: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(5px);
             display: flex;
@@ -76,16 +99,7 @@ export default function App() {
               height="172"
             />
           </li>
-          <li
-            className={cx(
-              liStyle,
-              css`
-                ::after {
-                  content: "123";
-                }
-              `
-            )}
-          >
+          <li className={cx(liStyle, badgeStyle(count))}>
             <img src="img/mail-icon.png" alt="Mail" width="172" height="172" />
           </li>
           <li className={liStyle}>
@@ -108,7 +122,7 @@ export default function App() {
         Notification count:&nbsp;
         <input
           type="number"
-          min="0"
+          min="1"
           max="1000"
           value={count}
           onChange={handleChange}
@@ -116,9 +130,10 @@ export default function App() {
         <input
           type="range"
           min="0"
-          max="1000"
-          value={count}
-          onChange={handleChange}
+          max="3"
+          step=".1"
+          value={Math.log10(count)}
+          onChange={handleLogChange}
         />
       </label>
     </div>
