@@ -6,7 +6,7 @@ function lerp(v0: number, v1: number, t: number) {
 }
 
 function logLerp(v0: number, v1: number, t: number) {
-  return lerp(v0, v1, Math.log10(t));
+  return ~~lerp(v0, v1, Math.log10(t));
 }
 
 const liStyle = css`
